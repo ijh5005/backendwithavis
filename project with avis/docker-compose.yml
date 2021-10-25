@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  # count_db:
+  #   build: ./database
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: demo
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./:/var/lib/mysql
+  backend:
+    build: ./backend
+    ports:
+      - 5000:5000
+    # depends_on:
+    #   - count_db
+  web:
+    image: nginx
+    volumes:
+    - ./frontend/html:/usr/share/nginx/html
+    ports:
+    - "8080:80"
+    depends_on:
+      - backend
